@@ -16,19 +16,29 @@ public:
 
 	std::vector<glm::vec3> verticesData;
 
-	glm::vec3 positionOffset;
-	float rotation, scale = 3;
+	glm::vec3 position, rotation, scale;
 
 	void load(std::string path) { 
 		bool res = loadOBJ(path.c_str(), vertices, uvs, normals);
 	}
 
-	void render(glm::mat4 projectionViewMatrix, GLuint modelMatrixLoc) {
+	void render(glm::mat4 projectionViewMatrix, GLuint shader_programme) {
+
+		GLuint modelMatrixLoc = glGetUniformLocation(shader_programme, "modelViewProjectionMatrix");
+		GLuint normalMatrixLoc = glGetUniformLocation(shader_programme, "normalMatrix");
+
 
 		glm::mat4 modelMatrix = glm::mat4();
-		modelMatrix *= glm::translate(positionOffset);
-		modelMatrix *= glm::scale(glm::vec3(scale, scale, scale));
+		modelMatrix *= glm::translate(position);
+		modelMatrix *= glm::rotate(rotation.x, glm::vec3(1, 0, 0));
+		modelMatrix *= glm::rotate(rotation.y, glm::vec3(0, 1, 0));
+		modelMatrix *= glm::rotate(rotation.z, glm::vec3(0, 0, 1));
+		modelMatrix *= glm::scale(scale);
+
+		glm::mat4 normalMatrix = glm::transpose(glm::inverse(modelMatrix));
+
 		glUniformMatrix4fv(modelMatrixLoc, 1, GL_FALSE, glm::value_ptr(projectionViewMatrix * modelMatrix));
+		glUniformMatrix4fv(normalMatrixLoc, 1, GL_FALSE, glm::value_ptr(normalMatrix));
 		
 		glGenBuffers(1, &vbo);
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);
@@ -58,8 +68,8 @@ public:
 
 	}
 	
-	Mesh(glm::vec3 positionOffset, std::string path) {
-		this->positionOffset = positionOffset;
+	Mesh(glm::vec3 position, std::string path) {
+		this->position = position;
 		load(path);
 		updateVerticesData();
 

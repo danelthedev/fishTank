@@ -17,6 +17,8 @@ void loadTexture(std::string path, GLuint& texture) {
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB,
 			GL_UNSIGNED_BYTE, data);
 		glGenerateMipmap(GL_TEXTURE_2D);
+
+		std::cout << "Loaded texture successfully" << std::endl;
 	}
 	else
 	{

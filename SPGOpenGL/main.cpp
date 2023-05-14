@@ -30,8 +30,8 @@ std::stack<glm::mat4> modelStack;
 
 Camera3D camera(glm::vec3(0,5,30));
 
-Fish fish1;
-Mesh mesh1;
+std::vector<Fish> fishes;
+int fishCount = 1;
 GLuint texture;
 
 Light light(glm::vec3(-4, 2, 5));
@@ -41,16 +41,18 @@ const int kFrameTime = 1000 / kTargetFPS;
 
 void loadObjectsInScene() {
 	loadTexture("obj/fish_texture.png", texture);
-	mesh1 = Mesh("obj/fish.obj");
-	fish1 = Fish(mesh1);
+
+	for(int i = 0; i < fishCount; i++)
+		fishes.push_back(Fish(Mesh("obj/fish.obj"), glm::vec3(i * 5, 0, 0)));
+
 }
 
 void initWindow(int argc, char** argv) {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
 	glutInitWindowPosition(200, 200);
-	glutInitWindowSize(700, 700);
-	glutCreateWindow("SPG");
+	glutInitWindowSize(1280, 720);
+	glutCreateWindow("Fish");
 }
 
 void initOpenGL()
@@ -143,12 +145,12 @@ void display()
 	//Send actor data to shader//
 	/////////////////////////////
 
-	(fish1.mesh).render(projectionViewMatrix, modelMatrixLoc);
-	fish1.animate();
-	
+	for(int i = 0; i < fishCount; ++i){
+		fishes[i].animate();
+		fishes[i].render(projectionViewMatrix, shader_programme);
+	}
 
 	glutSwapBuffers();
-	glutPostRedisplay();
 }
 
 void reshape(int w, int h)
@@ -160,15 +162,7 @@ void reshape(int w, int h)
 
 void keyboard(unsigned char key, int x, int y)
 {
-	switch (key)
-	{
-	case '+':
-		fish1.mesh.scale += 0.01;
-		break;
-	case '-':
-		fish1.mesh.scale -= 0.01;
-	};
-	glutPostRedisplay();
+
 }
 
 void idle(int value) {
@@ -179,7 +173,7 @@ void idle(int value) {
 	if (elapsed_time >= kFrameTime) {
 		//app logic
 		//...
-
+		glutPostRedisplay();
 		previous_time = current_time;
 	}
 

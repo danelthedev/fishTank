@@ -1,10 +1,9 @@
-# Blender MTL File: 'fish.blend'
-# Material Count: 1
+# Blender 3.5.1 MTL File: 'None'
+# www.blender.org
 
-newmtl Material
-Ns 96.078431
+newmtl Material.001
+Ns 96.078453
 Ka 1.000000 1.000000 1.000000
-Kd 0.800000 0.800000 0.800000
 Ks 0.050000 0.050000 0.050000
 Ke 0.000000 0.000000 0.000000
 Ni 1.000000
