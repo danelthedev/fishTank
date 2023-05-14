@@ -1,0 +1,11 @@
+﻿  Mesh.cpp
+C:\Users\Danel\Desktop\FishTank\SPGOpenGL\Mesh.hpp(20): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
+  main.cpp
+C:\Users\Danel\Desktop\FishTank\SPGOpenGL\Mesh.hpp(20): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
+C:\Users\Danel\Desktop\FishTank\SPGOpenGL\main.cpp(39,20): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Danel\Desktop\FishTank\SPGOpenGL\main.cpp(227,22): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\Danel\Desktop\FishTank\SPGOpenGL\main.cpp(232,22): warning C4305: '-=': truncation from 'double' to 'float'
+C:\Users\Danel\Desktop\FishTank\SPGOpenGL\main.cpp(237,22): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\Danel\Desktop\FishTank\SPGOpenGL\main.cpp(240,22): warning C4305: '-=': truncation from 'double' to 'float'
+  Generating Code...
+  SPGOpenGL.vcxproj -> C:\Users\Danel\Desktop\FishTank\x64\Debug\SPGOpenGL.exe

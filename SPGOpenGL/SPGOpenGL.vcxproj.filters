@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{01f25f6b-60e7-4302-8453-2b6a0d032c6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ObjectImporter">
+      <UniqueIdentifier>{39cec96c-b724-49b4-a78c-56e0bdcf912e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Shaders">
+      <UniqueIdentifier>{dde81aaf-389e-4813-aca0-72b80f79fa1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Utils">
+      <UniqueIdentifier>{234ecec3-c603-4db5-927d-09b2426274a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Render">
+      <UniqueIdentifier>{c6c04f2b-d7f2-4eb1-8154-2564b1c2f277}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Fishes">
+      <UniqueIdentifier>{39e98a31-298a-4eff-b0dc-792a0c49551b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="vertex.vert">
+      <Filter>src\Shaders</Filter>
+    </None>
+    <None Include="fragment.frag">
+      <Filter>src\Shaders</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="objloader.cpp">
+      <Filter>src\ObjectImporter</Filter>
+    </ClCompile>
+    <ClCompile Include="glloggers.cpp">
+      <Filter>src\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="utils.cpp">
+      <Filter>src\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera3D.cpp">
+      <Filter>src\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>src\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Light.cpp">
+      <Filter>src\Render</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="objloader.hpp">
+      <Filter>src\ObjectImporter</Filter>
+    </ClInclude>
+    <ClInclude Include="glloggers.hpp">
+      <Filter>src\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="utils.hpp">
+      <Filter>src\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera3D.hpp">
+      <Filter>src\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.hpp">
+      <Filter>src\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.hpp">
+      <Filter>src\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Light.hpp">
+      <Filter>src\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="stb_image.h">
+      <Filter>src\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Fish.hpp">
+      <Filter>src\Fishes</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
