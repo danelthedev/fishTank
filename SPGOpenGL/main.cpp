@@ -19,6 +19,9 @@
 #include "Fish.hpp"
 #include "TextureLoader.hpp"
 
+#include <windows.h>
+#include <mmsystem.h>
+
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
@@ -62,7 +65,7 @@ void initOpenGL()
 	const GLubyte* version = glGetString(GL_VERSION); // version as a string
 	printf("Renderer: %s\n", renderer);
 	printf("OpenGL version supported %s\n", version);
-	
+
 	glEnable(GL_DEPTH_TEST);
 	glClearColor(1, 1, 1, 0);
 
@@ -189,14 +192,13 @@ void configCallbacks() {
 }
 
 int main(int argc, char** argv)
-{	
+{
 	initWindow(argc, argv);
 	initOpenGL();
 
 	loadObjectsInScene();
-	
+
 	configCallbacks();
 	glutMainLoop();
-
 	return 0;
 }
