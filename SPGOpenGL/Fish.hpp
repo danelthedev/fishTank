@@ -34,13 +34,13 @@ public:
 
 	Fish() {
 		animation = Animation();
-		animation.directions.push_back(Direction(glm::vec3(0.0005, 0, 0), 1000));
-		animation.directions.push_back(Direction(glm::vec3(-0.0005, 0, 0), 1000));
+		animation.directions.push_back(Direction(glm::vec3(0.01, 0, 0), 1000));
+		animation.directions.push_back(Direction(glm::vec3(-0.01, 0, 0), 1000));
 	}
 
 	Fish(Mesh mesh) {
-		animation.directions.push_back(Direction(glm::vec3(0.0005, 0, 0), 1000));
-		animation.directions.push_back(Direction(glm::vec3(-0.0005, 0, 0), 1000));
+		animation.directions.push_back(Direction(glm::vec3(0.01, 0, 0), 1000));
+		animation.directions.push_back(Direction(glm::vec3(-0.01, 0, 0), 1000));
 
 		this->mesh = mesh;
 	}
@@ -52,7 +52,6 @@ public:
 		this->mesh = mesh;
 		this->mesh.positionOffset = positionOffset;
 		this->positionOffset = positionOffset;
-		this->mesh.updatePosition();
 	}
 
 	void animate() {
@@ -71,7 +70,6 @@ public:
 		animation.currentFrame++;
 
 		mesh.positionOffset = positionOffset;
-		//mesh.updatePosition();
 	}
 
 };

@@ -15,10 +15,7 @@ void main()
 {
 	gl_Position = modelViewProjectionMatrix * vec4(vPos, 1.0);
 	
-	normal = vNormal;
-	normal = vec3(normalMatrix * vec4(normal, 1));
-
+	normal = vec3(normalMatrix * vec4(vNormal, 1));
 	uv = vUv;
-
 	pos = vPos;
 }

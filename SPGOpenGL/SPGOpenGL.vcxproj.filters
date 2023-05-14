@@ -79,5 +79,8 @@
     <ClInclude Include="Fish.hpp">
       <Filter>src\Fishes</Filter>
     </ClInclude>
+    <ClInclude Include="TextureLoader.hpp">
+      <Filter>src\ObjectImporter</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
