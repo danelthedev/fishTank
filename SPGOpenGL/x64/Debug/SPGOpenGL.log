@@ -1,3 +1,4 @@
 ﻿  main.cpp
-C:\Users\Danel\Desktop\FishTank\SPGOpenGL\Mesh.hpp(59,1): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
+C:\Users\Danel\Desktop\FishTank\SPGOpenGL\Mesh.hpp(62,1): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
+C:\Users\Danel\Desktop\FishTank\SPGOpenGL\main.cpp(73,28): warning C4305: 'argument': truncation from 'double' to 'GLclampf'
   SPGOpenGL.vcxproj -> C:\Users\Danel\Desktop\FishTank\x64\Debug\SPGOpenGL.exe

@@ -8,10 +8,15 @@ in vec3 uv;
 uniform vec3 lightPos;
 uniform vec3 viewPos;
 
-//uniform vec3 lightPos2;
+uniform int textureIndex;
 
-uniform sampler2D tex;
+uniform vec3 lightPos2;
 
+uniform sampler2D fish_texture;
+uniform sampler2D fish_texture2;
+uniform sampler2D fish_texture3;
+uniform sampler2D fish_texture4;
+uniform sampler2D fish_texture5;
 
 vec3 lighting(vec3 objectColor, vec3 pos, vec3 normal, vec3 lightPos, vec3 viewPos,
 				vec3 ambient, vec3 lightColor, vec3 specular, float specPower)
@@ -36,18 +41,26 @@ vec3 lighting(vec3 objectColor, vec3 pos, vec3 normal, vec3 lightPos, vec3 viewP
 void main() 
 {
 	vec3 objectColor = vec3(1.0, 1.0, 1.0);
-	vec3 lightColor = vec3(1.0, 1.0, 1.0);
+	vec3 lightColor = vec3(0.7, 0.7, 1.0);
 	vec3 ambient = vec3(0.1);
 	vec3 specular = vec3(0.8);
 	float specPower = 32;
 
 	vec3 color = lighting(objectColor, pos, normal, lightPos, viewPos, ambient, lightColor, specular, specPower);
-
 	
-	//vec3 lightColor2 = vec3(1.0, 1.0, 0.0);
-	//vec3 color2 = lighting(objectColor, pos, normal, lightPos2, viewPos, ambient, lightColor2, specular, specPower);
-	//vec3 specialColor = color + color2;
+	vec3 lightColor2 = vec3(0.7, 0.7, 1.0);
+	vec3 color2 = lighting(objectColor, pos, normal, lightPos2, viewPos, ambient, lightColor2, specular, specPower);
+	
+	vec3 finalColor = color + color2;
 
-	//fragColor = vec4(color, 1.0);
-	fragColor = texture(tex, uv.xy) * vec4(color, 1.0);
+	if(textureIndex == 0)
+		fragColor = texture(fish_texture, uv.xy) * vec4(finalColor, 1.0);
+	else if(textureIndex == 1)
+		fragColor = texture(fish_texture2, uv.xy) * vec4(finalColor, 1.0);
+	else if(textureIndex == 2)
+		fragColor = texture(fish_texture3, uv.xy) * vec4(finalColor, 1.0);
+	else if(textureIndex == 3)
+		fragColor = texture(fish_texture4, uv.xy) * vec4(finalColor, 1.0);
+	else if(textureIndex == 4)
+		fragColor = texture(fish_texture5, uv.xy) * vec4(finalColor, 1.0);
 }

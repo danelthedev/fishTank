@@ -5,6 +5,7 @@
 #include "objloader.hpp"
 #include <GL/glew.h>
 #include "Mesh.hpp"
+#include "Texture.hpp"
 
 struct Action {
 	glm::vec3 move, rotate, rescale;
@@ -45,7 +46,10 @@ struct Animation {
 
 class Fish {
 public:
+	GLuint shader_programme;
+
 	Mesh mesh;
+	Texture texture;
 	glm::vec3 position, rotation, scale;
 	Animation animation;
 
@@ -97,6 +101,22 @@ public:
 		scale = glm::vec3(1, 1, 1);
 		this->mesh.rotation = rotation;
 		this->mesh.scale = scale;
+	}
+
+	Fish(Mesh mesh, std::string texturePath, glm::vec3 position, GLuint shader_programme) {
+		configureBasicAnimation();
+		this->mesh = mesh;
+
+		this->position = position;
+		this->mesh.position = position;
+
+		rotation = glm::vec3(0, 0, 0);
+		scale = glm::vec3(1, 1, 1);
+		this->mesh.rotation = rotation;
+		this->mesh.scale = scale;
+
+		this->texture = Texture();
+		this->texture.load(texturePath.c_str(), shader_programme);
 	}
 
 	Fish(Mesh mesh, glm::vec3 position, glm::vec3 scale, glm::vec3 rotation) {

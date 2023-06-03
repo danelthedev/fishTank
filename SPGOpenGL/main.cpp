@@ -34,19 +34,22 @@ std::stack<glm::mat4> modelStack;
 Camera3D camera(glm::vec3(0,5,30));
 
 std::vector<Fish> fishes;
-int fishCount = 1;
 GLuint texture;
 
-Light light(glm::vec3(-4, 2, 5));
+Light light(glm::vec3(-10, 10, 4));
+Light light2(glm::vec3(10, 10, 4));
 
 const int kTargetFPS = 60;
 const int kFrameTime = 1000 / kTargetFPS;
 
-void loadObjectsInScene() {
-	loadTexture("obj/fish_texture.png", texture);
+int Texture::textureCount = 0;
 
-	for(int i = 0; i < fishCount; i++)
-		fishes.push_back(Fish(Mesh("obj/fish.obj"), glm::vec3(i * 5, 0, 0)));
+void loadObjectsInScene() {
+	fishes.push_back(Fish(Mesh("obj/fish.obj"), "obj/fish_texture.png", glm::vec3(-5, 5, 0), shader_programme));
+	fishes.push_back(Fish(Mesh("obj/fish2.obj"), "obj/fish_texture2.jpg", glm::vec3(5, 5, 0), shader_programme));
+	fishes.push_back(Fish(Mesh("obj/fish3.obj"), "obj/fish_texture3.jpg", glm::vec3(-5, -5, 0), shader_programme));
+	fishes.push_back(Fish(Mesh("obj/fish4.obj"), "obj/fish_texture4.jpg", glm::vec3(5, -5, 0), shader_programme));
+	fishes.push_back(Fish(Mesh("obj/fish5.obj"), "obj/fish_texture5.jpg", glm::vec3(0, 0, 0), shader_programme));
 
 }
 
@@ -67,7 +70,7 @@ void initOpenGL()
 	printf("OpenGL version supported %s\n", version);
 
 	glEnable(GL_DEPTH_TEST);
-	glClearColor(1, 1, 1, 0);
+	glClearColor(.2, .2, .6, 0);
 
 	glewInit();
 
@@ -124,6 +127,8 @@ void display()
 	//send light data to shader
 	GLuint lightPosLoc = glGetUniformLocation(shader_programme, "lightPos");
 	glUniform3fv(lightPosLoc, 1, glm::value_ptr(light.getPosition()));
+	GLuint lightPosLoc2 = glGetUniformLocation(shader_programme, "lightPos2");
+	glUniform3fv(lightPosLoc2, 1, glm::value_ptr(light2.getPosition()));
 	//send view position to shader
 	GLuint viewPosLoc = glGetUniformLocation(shader_programme, "viewPos");
 	glUniform3fv(viewPosLoc, 1, glm::value_ptr(camera.getPosition()));
@@ -148,7 +153,8 @@ void display()
 	//Send actor data to shader//
 	/////////////////////////////
 
-	for(int i = 0; i < fishCount; ++i){
+	for(int i = 0; i < fishes.size(); ++i){
+		fishes[i].texture.bindTexture();
 		fishes[i].animate();
 		fishes[i].render(projectionViewMatrix, shader_programme);
 	}

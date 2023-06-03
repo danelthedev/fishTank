@@ -50,6 +50,9 @@
     <ClCompile Include="Light.cpp">
       <Filter>src\Render</Filter>
     </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>src\Render</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="objloader.hpp">
@@ -79,8 +82,8 @@
     <ClInclude Include="Fish.hpp">
       <Filter>src\Fishes</Filter>
     </ClInclude>
-    <ClInclude Include="TextureLoader.hpp">
-      <Filter>src\ObjectImporter</Filter>
+    <ClInclude Include="Texture.hpp">
+      <Filter>src\Render</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
