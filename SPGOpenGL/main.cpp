@@ -115,6 +115,18 @@ void initOpenGL()
 	printProgramInfoLog(shader_programme);
 }
 
+void animateFishes() {
+	for (int i = 0; i < fishes.size(); ++i) {
+		fishes[i].animate();
+	}
+}
+
+void bindTextures() {
+	for (int i = 0; i < fishes.size(); ++i) {
+		fishes[i].texture.bindTexture();
+	}
+}
+
 void display()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -180,20 +192,25 @@ void idle(int value) {
 	int elapsed_time = current_time - previous_time;
 
 	if (elapsed_time >= kFrameTime) {
-		//app logic
-		//...
+		// app logic
+
 		glutPostRedisplay();
 		previous_time = current_time;
 	}
 
-	// Register the idle function again11
-	glutTimerFunc(0, idle, 0);
+	int remaining_time = kFrameTime - elapsed_time;
+	if (remaining_time > 0) {
+		glutTimerFunc(remaining_time, idle, 0);
+	}
+	else {
+		glutTimerFunc(0, idle, 0);
+	}
 }
 
 void configCallbacks() {
+	glutTimerFunc(0, idle, 0);
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);
-	glutTimerFunc(0, idle, 0);
 	glutKeyboardFunc(keyboard);
 }
 
