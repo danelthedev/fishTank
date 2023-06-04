@@ -16,7 +16,7 @@
     <Filter Include="src\Render">
       <UniqueIdentifier>{c6c04f2b-d7f2-4eb1-8154-2564b1c2f277}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Fishes">
+    <Filter Include="src\FishesAndProps">
       <UniqueIdentifier>{39e98a31-298a-4eff-b0dc-792a0c49551b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -80,10 +80,13 @@
       <Filter>src\Utils</Filter>
     </ClInclude>
     <ClInclude Include="Fish.hpp">
-      <Filter>src\Fishes</Filter>
+      <Filter>src\FishesAndProps</Filter>
     </ClInclude>
     <ClInclude Include="Texture.hpp">
       <Filter>src\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Prop.hpp">
+      <Filter>src\FishesAndProps</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

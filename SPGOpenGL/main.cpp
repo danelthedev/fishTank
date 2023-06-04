@@ -18,6 +18,7 @@
 #include "Light.hpp"
 #include "Fish.hpp"
 #include "TextureLoader.hpp"
+#include "Prop.hpp"
 
 #include <windows.h>
 #include <mmsystem.h>
@@ -34,10 +35,10 @@ std::stack<glm::mat4> modelStack;
 Camera3D camera(glm::vec3(0,5,30));
 
 std::vector<Fish> fishes;
+std::vector<Prop> props;
 GLuint texture;
 
-Light light(glm::vec3(-10, 10, 4));
-Light light2(glm::vec3(10, 10, 4));
+std::vector<Light> lights;
 
 const int kTargetFPS = 60;
 const int kFrameTime = 1000 / kTargetFPS;
@@ -45,11 +46,59 @@ const int kFrameTime = 1000 / kTargetFPS;
 int Texture::textureCount = 0;
 
 void loadObjectsInScene() {
-	fishes.push_back(Fish(Mesh("obj/fish.obj"), "obj/fish_texture.png", glm::vec3(-5, 5, 0), shader_programme));
-	fishes.push_back(Fish(Mesh("obj/fish2.obj"), "obj/fish_texture2.jpg", glm::vec3(5, 5, 0), shader_programme));
-	fishes.push_back(Fish(Mesh("obj/fish3.obj"), "obj/fish_texture3.jpg", glm::vec3(-5, -5, 0), shader_programme));
-	fishes.push_back(Fish(Mesh("obj/fish4.obj"), "obj/fish_texture4.jpg", glm::vec3(5, -5, 0), shader_programme));
-	fishes.push_back(Fish(Mesh("obj/fish5.obj"), "obj/fish_texture5.jpg", glm::vec3(0, 0, 0), shader_programme));
+
+	//lights
+	lights.push_back(Light(glm::vec3(-10, 10, 10)));
+	lights.push_back(Light(glm::vec3(10, 10, 10)));
+
+	//Fishes
+
+	fishes.push_back(Fish(Mesh("obj/fish.obj"), 
+		"obj/fish_texture.png", 
+		glm::vec3(-5, 5, 0), 
+		shader_programme));
+
+	fishes.push_back(Fish(Mesh("obj/fish2.obj"), 
+		"obj/fish_texture2.jpg", 
+		glm::vec3(5, 5, 0), 
+		shader_programme));
+
+	fishes.push_back(Fish(Mesh("obj/fish3.obj"), 
+		"obj/fish_texture3.jpg", 
+		glm::vec3(-5, -5, 0), 
+		shader_programme));
+
+	fishes.push_back(Fish(Mesh("obj/fish4.obj"), 
+		"obj/fish_texture4.jpg", 
+		glm::vec3(5, -5, 0),
+		shader_programme));
+
+	fishes.push_back(Fish(Mesh("obj/fish5.obj"), 
+		"obj/fish_texture5.jpg",
+		glm::vec3(0, 0, 0), 
+		shader_programme));
+
+	//Props
+
+	props.push_back(Prop(Mesh("obj/table.obj"),
+		"obj/wood_texture.jpg",
+		glm::vec3(0,-10,0),
+		shader_programme));
+
+	props.push_back(Prop(Mesh("obj/fundAcvariu.obj"),
+		"obj/negru_texture.png",
+		glm::vec3(0, -10, 0),
+		shader_programme));
+
+	props.push_back(Prop(Mesh("obj/acvariu.obj"),
+		"obj/GlassAndWater_texture.png",
+		glm::vec3(0, -10, 0),
+		shader_programme));
+
+	props.push_back(Prop(Mesh("obj/wall.obj"),
+		"obj/wall_texture.png",
+		glm::vec3(0, 0, 0),
+		shader_programme));
 
 }
 
@@ -68,9 +117,11 @@ void initOpenGL()
 	const GLubyte* version = glGetString(GL_VERSION); // version as a string
 	printf("Renderer: %s\n", renderer);
 	printf("OpenGL version supported %s\n", version);
-
+	
 	glEnable(GL_DEPTH_TEST);
-	glClearColor(.2, .2, .6, 0);
+	glClearColor(1, 1, 1, 0);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_BLEND);
 
 	glewInit();
 
@@ -136,11 +187,19 @@ void display()
 	//light and position data//
 	///////////////////////////
 
+	//iterate through all lights and send data to shader
+	std::vector<glm::vec3> lightPositions;
+	for(int i = 0; i < lights.size(); ++ i)
+		lightPositions.push_back(lights[i].getPosition());
+
 	//send light data to shader
-	GLuint lightPosLoc = glGetUniformLocation(shader_programme, "lightPos");
-	glUniform3fv(lightPosLoc, 1, glm::value_ptr(light.getPosition()));
-	GLuint lightPosLoc2 = glGetUniformLocation(shader_programme, "lightPos2");
-	glUniform3fv(lightPosLoc2, 1, glm::value_ptr(light2.getPosition()));
+	GLuint lightPosLoc = glGetUniformLocation(shader_programme, "lights");
+	glUniform3fv(lightPosLoc, lights.size(), glm::value_ptr(lightPositions[0]));
+
+	//send light count to shader
+	GLuint lightCountLoc = glGetUniformLocation(shader_programme, "lightsCount");
+	glUniform1i(lightCountLoc, lights.size());
+	
 	//send view position to shader
 	GLuint viewPosLoc = glGetUniformLocation(shader_programme, "viewPos");
 	glUniform3fv(viewPosLoc, 1, glm::value_ptr(camera.getPosition()));
@@ -169,6 +228,11 @@ void display()
 		fishes[i].texture.bindTexture();
 		fishes[i].animate();
 		fishes[i].render(projectionViewMatrix, shader_programme);
+	}
+
+	for (int i = 0; i < props.size(); ++i) {
+		props[i].texture.bindTexture();
+		props[i].render(projectionViewMatrix, shader_programme);
 	}
 
 	glutSwapBuffers();

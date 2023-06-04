@@ -141,6 +141,7 @@
     <ClInclude Include="Light.hpp" />
     <ClInclude Include="Mesh.hpp" />
     <ClInclude Include="objloader.hpp" />
+    <ClInclude Include="Prop.hpp" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="Texture.hpp" />
     <ClInclude Include="utils.hpp" />

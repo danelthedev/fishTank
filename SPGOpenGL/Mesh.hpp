@@ -22,11 +22,32 @@ public:
 		bool res = loadOBJ(path.c_str(), vertices, uvs, normals);
 	}
 
+	void setupBuffers()
+	{
+		glGenBuffers(1, &vbo);
+		glBindBuffer(GL_ARRAY_BUFFER, vbo);
+		glBufferData(GL_ARRAY_BUFFER, verticesData.size() * sizeof(glm::vec3), &verticesData[0], GL_STATIC_DRAW);
+
+		glGenVertexArrays(1, &vao);
+		glBindVertexArray(vao);
+
+		// Position
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 9 * sizeof(float), NULL);
+
+		// Normals
+		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 9 * sizeof(float), (void*)(sizeof(float) * 3));
+
+		// Texture coords
+		glEnableVertexAttribArray(2);
+		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 9 * sizeof(float), (void*)(sizeof(float) * 6));
+	}
+
 	void render(glm::mat4 projectionViewMatrix, GLuint shader_programme) {
 
 		GLuint modelMatrixLoc = glGetUniformLocation(shader_programme, "modelViewProjectionMatrix");
 		GLuint normalMatrixLoc = glGetUniformLocation(shader_programme, "normalMatrix");
-
 
 		glm::mat4 modelMatrix = glm::mat4();
 		modelMatrix *= glm::translate(position);
@@ -39,27 +60,9 @@ public:
 
 		glUniformMatrix4fv(modelMatrixLoc, 1, GL_FALSE, glm::value_ptr(projectionViewMatrix * modelMatrix));
 		glUniformMatrix4fv(normalMatrixLoc, 1, GL_FALSE, glm::value_ptr(normalMatrix));
-		
-		glGenBuffers(1, &vbo);
-		glBindBuffer(GL_ARRAY_BUFFER, vbo);
-		glBufferData(GL_ARRAY_BUFFER, verticesData.size() * sizeof(glm::vec3), &verticesData[0], GL_STATIC_DRAW);
 
-		glGenVertexArrays(1, &vao);
-		glBindVertexArray(vao);
-
-		//position
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 9 * sizeof(float), NULL);
-
-		//normals
-		glEnableVertexAttribArray(1);
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 9 * sizeof(float), (void*)(sizeof(float) * 3));
-
-		//texture coords
-		glEnableVertexAttribArray(2);
-		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 9 * sizeof(float), (void*)(sizeof(float) * 6));
-
-		glDrawArrays(GL_TRIANGLES, 0, vertices.size()); 
+		glBindVertexArray(vao); // Bind the pre-created VAO
+		glDrawArrays(GL_TRIANGLES, 0, vertices.size());
 	}
 
 	Mesh() {
