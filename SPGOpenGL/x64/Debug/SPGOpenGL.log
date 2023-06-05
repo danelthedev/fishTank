@@ -1,5 +1,20 @@
 ﻿  main.cpp
 C:\Users\Danel\Desktop\FishTank\SPGOpenGL\Mesh.hpp(65,1): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
-C:\Users\Danel\Desktop\FishTank\SPGOpenGL\main.cpp(187,76): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
-C:\Users\Danel\Desktop\FishTank\SPGOpenGL\main.cpp(191,42): warning C4267: 'argument': conversion from 'size_t' to 'GLint', possible loss of data
+C:\Users\Danel\Desktop\FishTank\SPGOpenGL\Fish.hpp(182,18): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Danel\Desktop\FishTank\SPGOpenGL\Fish.hpp(183,18): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Danel\Desktop\FishTank\SPGOpenGL\Fish.hpp(184,18): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Danel\Desktop\FishTank\SPGOpenGL\main.cpp(212,76): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
+C:\Users\Danel\Desktop\FishTank\SPGOpenGL\main.cpp(216,42): warning C4267: 'argument': conversion from 'size_t' to 'GLint', possible loss of data
   SPGOpenGL.vcxproj -> C:\Users\Danel\Desktop\FishTank\x64\Debug\SPGOpenGL.exe

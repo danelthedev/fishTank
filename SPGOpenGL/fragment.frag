@@ -45,7 +45,7 @@ void main()
     for(int i = 0; i < lightsCount; ++i)
     {
         vec3 lightPos = lights[i];
-        vec3 lightColor = vec3(1.0, 1.0, 1.0);
+        vec3 lightColor = vec3(0.75, 0.75, 0.75);
         vec3 color = lighting(objectColor, pos, normal, lightPos, viewPos, ambient, lightColor, specular, specPower);
 
         finalColor += color;

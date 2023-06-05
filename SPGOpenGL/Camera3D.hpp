@@ -16,6 +16,8 @@ public:
 	void setUp(glm::vec3 _up) { this->up = _up; }
 	void setObservedPoint(glm::vec3 _observedPoint) { this->observedPoint = _observedPoint; }
 
+	void move(glm::vec3 _distance) { this->position += _distance; }
+
 	glm::vec3 getPosition() { return this->position; }
 	glm::vec3 getRotation() { return this->rotation; }
 	float getFov() { return this->fov; }

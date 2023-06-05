@@ -42,60 +42,89 @@ const int kFrameTime = 1000 / kTargetFPS;
 
 int Texture::textureCount = 0;
 
+double random(double min, double max) {
+	return min + (max - min) * (double)rand() / RAND_MAX;
+}
+
 void loadObjectsInScene() {
 
 	//lights
-	lights.push_back(Light(glm::vec3(-10, 10, 10)));
-	lights.push_back(Light(glm::vec3(10, 10, 10)));
+	lights.push_back(Light(glm::vec3(-17, 10, 5)));
+	lights.push_back(Light(glm::vec3(17, 10, 5)));
+	//back lights
+	lights.push_back(Light(glm::vec3(-17, 10, -12)));
+	lights.push_back(Light(glm::vec3(17, 10, -12)));
+
 
 	//Fishes
 
+	//generate a random z coordinate between -2 and 0
 	fishes.push_back(Fish(Mesh("obj/fish.obj"), 
 		"obj/fish_texture.png", 0,
-		glm::vec3(-5, 5, 0), 
+		glm::vec3(-5, 5, random(-6, 4)), 
 		shader_programme));
 
 	fishes.push_back(Fish(Mesh("obj/fish2.obj"), 
 		"obj/fish_texture2.jpg", 1, 
-		glm::vec3(5, 5, 0), 
+		glm::vec3(5, 5, random(-6, 4)),
 		shader_programme));
 
-	fishes.push_back(Fish(Mesh("obj/fish3.obj"), 
+	fishes.push_back(Fish(Mesh("obj/fish3.obj"),
 		"obj/fish_texture3.jpg", 2,
-		glm::vec3(-5, -5, 0), 
+		glm::vec3(-5, -5, random(-6, 4)),
 		shader_programme));
 
 	fishes.push_back(Fish(Mesh("obj/fish4.obj"), 
 		"obj/fish_texture4.jpg", 3,
-		glm::vec3(5, -5, 0),
+		glm::vec3(5, -5, random(-6, 4)),
 		shader_programme));
 
 	fishes.push_back(Fish(Mesh("obj/fish5.obj"), 
 		"obj/fish_texture5.jpg", 4,
-		glm::vec3(0, 0, 0), 
+		glm::vec3(0, 0, random(-6, 4)),
 		shader_programme));
 
 	//Props
+	props.push_back(Prop(Mesh("obj/wall.obj"),
+		"obj/wall_texture.png", 5,
+		glm::vec3(0, 0, 0),
+		shader_programme));
+
+	props.push_back(Prop(Mesh("obj/floorAndCeiling.obj"),
+		"obj/wood_planks.png", 6,
+		glm::vec3(0, 0, 0),
+		shader_programme));
 
 	props.push_back(Prop(Mesh("obj/table.obj"),
-		"obj/wood_texture.jpg", 5,
+		"obj/wood_texture.jpg", 7,
 		glm::vec3(0,-10,0),
 		shader_programme));
 
 	props.push_back(Prop(Mesh("obj/fundAcvariu.obj"),
-		"obj/negru_texture.png", 6,
+		"obj/negru_texture.png", 8,
+		glm::vec3(0, -10, 0),
+		shader_programme));
+
+	props.push_back(Prop(Mesh("obj/starfish.obj"),
+		"obj/starfish_texture.jpg", 9,
+		glm::vec3(0, -10, 0),
+		shader_programme));
+
+	props.push_back(Prop(Mesh("obj/rock.obj"),
+		"obj/rock_texture.jpeg", 10,
+		glm::vec3(0, -10, 0),
+		shader_programme));
+
+	props.push_back(Prop(Mesh("obj/sandBase.obj"),
+		"obj/sand_texture.jpg", 11,
 		glm::vec3(0, -10, 0),
 		shader_programme));
 
 	props.push_back(Prop(Mesh("obj/acvariu.obj"),
-		"obj/GlassAndWater_texture.png", 7,
+		"obj/GlassAndWater_texture.png", 12,
 		glm::vec3(0, -10, 0),
 		shader_programme));
 
-	props.push_back(Prop(Mesh("obj/wall.obj"),
-		"obj/wall_texture.png", 8,
-		glm::vec3(0, 0, 0),
-		shader_programme));
 
 }
 
@@ -233,7 +262,37 @@ void reshape(int w, int h)
 
 void keyboard(unsigned char key, int x, int y)
 {
+	//when pressing a/d rotate camera around observed point
+	glm::vec3 displacement, rotatedDisplacement;
+	glm::mat4 rotationMatrix;
+	
+	switch (key)
+	{
+	case 'a':
+		displacement = camera.getPosition() - camera.getObservedPoint();
+		rotationMatrix = glm::rotate(glm::mat4(1.0f), -PI/16, glm::vec3(0.0f, 1.0f, 0.0f));
+		rotatedDisplacement = rotationMatrix * glm::vec4(displacement, 1.0f);
 
+		camera.setPosition(camera.getObservedPoint() + glm::vec3(rotatedDisplacement));
+		break;
+	case 'd':
+		displacement = camera.getPosition() - camera.getObservedPoint();
+		rotationMatrix = glm::rotate(glm::mat4(1.0f), PI/16, glm::vec3(0.0f, 1.0f, 0.0f));
+		rotatedDisplacement = rotationMatrix * glm::vec4(displacement, 1.0f);
+
+		camera.setPosition(camera.getObservedPoint() + glm::vec3(rotatedDisplacement));
+		break;
+	case 'w':
+		if(camera.getPosition().y < 20.0)
+			camera.move(glm::vec3(0.0, 1.0, 0.0));
+		break;
+	case 's':
+		if (camera.getPosition().y > -5.0)
+			camera.move(glm::vec3(0.0, -1.0, 0.0));
+		break;
+	}
+
+	viewMatrix = glm::lookAt(camera.getPosition(), camera.getObservedPoint(), camera.getUp());
 }
 
 void idle(int value) {

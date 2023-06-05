@@ -5,7 +5,7 @@ Camera3D::Camera3D() {
 	this->rotation = glm::vec3();
 	this->up = glm::vec3(0, 1, 0);
 	this->fov = glm::pi<float>() / 4;
-	this->observedPoint = glm::vec3();
+	this->observedPoint = glm::vec3(0,0,-2);
 }
 
 Camera3D::Camera3D(glm::vec3 _position, glm::vec3 _rotation) {
@@ -13,7 +13,7 @@ Camera3D::Camera3D(glm::vec3 _position, glm::vec3 _rotation) {
 	this->rotation = _rotation;
 	this->up = glm::vec3(0, 1, 0);
 	this->fov = glm::pi<float>() / 4;
-	this->observedPoint = glm::vec3();
+	this->observedPoint = glm::vec3(0, 0, -2);
 }
 
 void Camera3D::lookAt(glm::vec3 target) {

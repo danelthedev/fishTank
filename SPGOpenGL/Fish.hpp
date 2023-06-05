@@ -7,6 +7,7 @@
 #include "Mesh.hpp"
 #include "Texture.hpp"
 
+
 struct Action {
 	glm::vec3 move, rotate, rescale;
 	int frameCount;
@@ -45,6 +46,11 @@ struct Animation {
 };
 
 class Fish {
+private:
+	double random(double min, double max) {
+		return min + (max - min) * (double)rand() / RAND_MAX;
+	}
+
 public:
 	GLuint shader_programme;
 
@@ -173,9 +179,9 @@ public:
 
 		// Calculate a point within the specified boundary
 		glm::vec3 goal;
-		goal.x = (rand() % 200 - 100) / 10.0f;
-		goal.y = (rand() % 600 - 300) / 100.0f;
-		goal.z = (rand() % 200 - 100) / 100.0f;
+		goal.x = random(-10, 10);
+		goal.y = random(-5,5);
+		goal.z = random(-8, 3);
 
 		// Calculate the direction vector
 		glm::vec3 direction = goal - position;
