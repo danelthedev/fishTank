@@ -1,5 +1,5 @@
 ﻿  main.cpp
 C:\Users\Danel\Desktop\FishTank\SPGOpenGL\Mesh.hpp(65,1): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
-C:\Users\Danel\Desktop\FishTank\SPGOpenGL\main.cpp(197,76): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
-C:\Users\Danel\Desktop\FishTank\SPGOpenGL\main.cpp(201,42): warning C4267: 'argument': conversion from 'size_t' to 'GLint', possible loss of data
+C:\Users\Danel\Desktop\FishTank\SPGOpenGL\main.cpp(187,76): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
+C:\Users\Danel\Desktop\FishTank\SPGOpenGL\main.cpp(191,42): warning C4267: 'argument': conversion from 'size_t' to 'GLint', possible loss of data
   SPGOpenGL.vcxproj -> C:\Users\Danel\Desktop\FishTank\x64\Debug\SPGOpenGL.exe

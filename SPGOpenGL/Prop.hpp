@@ -15,7 +15,7 @@ public:
 	Texture texture;
 	glm::vec3 position, rotation, scale;
 
-	Prop(Mesh mesh, std::string texturePath, glm::vec3 position, GLuint shader_programme) {
+	Prop(Mesh mesh, std::string texturePath, int textureIndex, glm::vec3 position, GLuint shader_programme) {
 		this->mesh = mesh;
 
 		this->position = position;
@@ -27,7 +27,7 @@ public:
 		this->mesh.scale = scale;
 
 		this->texture = Texture();
-		this->texture.load(texturePath.c_str(), shader_programme);
+		this->texture.load(texturePath.c_str(), shader_programme, textureIndex);
 
 		this->mesh.setupBuffers();
 	}

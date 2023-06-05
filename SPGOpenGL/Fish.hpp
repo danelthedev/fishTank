@@ -101,7 +101,7 @@ public:
 		this->mesh.setupBuffers();
 	}
 
-	Fish(Mesh mesh, std::string texturePath, glm::vec3 position, GLuint shader_programme) {
+	Fish(Mesh mesh, std::string texturePath, int textureIndex, glm::vec3 position, GLuint shader_programme) {
 		configureBasicAnimation();
 		this->mesh = mesh;
 
@@ -114,7 +114,7 @@ public:
 		this->mesh.scale = scale;
 
 		this->texture = Texture();
-		this->texture.load(texturePath.c_str(), shader_programme);
+		this->texture.load(texturePath.c_str(), shader_programme, textureIndex);
 
 		this->mesh.setupBuffers();
 	}

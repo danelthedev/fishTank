@@ -1,7 +1,4 @@
-﻿//TODO:
-//Repara texturile proaste
-
-#include "glloggers.hpp"
+﻿#include "glloggers.hpp"
 #include "objloader.hpp"
 #include "utils.hpp"
 
@@ -54,49 +51,49 @@ void loadObjectsInScene() {
 	//Fishes
 
 	fishes.push_back(Fish(Mesh("obj/fish.obj"), 
-		"obj/fish_texture.png", 
+		"obj/fish_texture.png", 0,
 		glm::vec3(-5, 5, 0), 
 		shader_programme));
 
 	fishes.push_back(Fish(Mesh("obj/fish2.obj"), 
-		"obj/fish_texture2.jpg", 
+		"obj/fish_texture2.jpg", 1, 
 		glm::vec3(5, 5, 0), 
 		shader_programme));
 
 	fishes.push_back(Fish(Mesh("obj/fish3.obj"), 
-		"obj/fish_texture3.jpg", 
+		"obj/fish_texture3.jpg", 2,
 		glm::vec3(-5, -5, 0), 
 		shader_programme));
 
 	fishes.push_back(Fish(Mesh("obj/fish4.obj"), 
-		"obj/fish_texture4.jpg", 
+		"obj/fish_texture4.jpg", 3,
 		glm::vec3(5, -5, 0),
 		shader_programme));
 
 	fishes.push_back(Fish(Mesh("obj/fish5.obj"), 
-		"obj/fish_texture5.jpg",
+		"obj/fish_texture5.jpg", 4,
 		glm::vec3(0, 0, 0), 
 		shader_programme));
 
 	//Props
 
 	props.push_back(Prop(Mesh("obj/table.obj"),
-		"obj/wood_texture.jpg",
+		"obj/wood_texture.jpg", 5,
 		glm::vec3(0,-10,0),
 		shader_programme));
 
 	props.push_back(Prop(Mesh("obj/fundAcvariu.obj"),
-		"obj/negru_texture.png",
+		"obj/negru_texture.png", 6,
 		glm::vec3(0, -10, 0),
 		shader_programme));
 
 	props.push_back(Prop(Mesh("obj/acvariu.obj"),
-		"obj/GlassAndWater_texture.png",
+		"obj/GlassAndWater_texture.png", 7,
 		glm::vec3(0, -10, 0),
 		shader_programme));
 
 	props.push_back(Prop(Mesh("obj/wall.obj"),
-		"obj/wall_texture.png",
+		"obj/wall_texture.png", 8,
 		glm::vec3(0, 0, 0),
 		shader_programme));
 
@@ -166,17 +163,6 @@ void initOpenGL()
 	printProgramInfoLog(shader_programme);
 }
 
-void animateFishes() {
-	for (int i = 0; i < fishes.size(); ++i) {
-		fishes[i].animate();
-	}
-}
-
-void bindTextures() {
-	for (int i = 0; i < fishes.size(); ++i) {
-		fishes[i].texture.bindTexture();
-	}
-}
 
 void display()
 {
@@ -225,13 +211,13 @@ void display()
 	/////////////////////////////
 
 	for(int i = 0; i < fishes.size(); ++i){
-		fishes[i].texture.bindTexture();
+		fishes[i].texture.bindTexture(shader_programme, i);
 		fishes[i].animate();
 		fishes[i].render(projectionViewMatrix, shader_programme);
 	}
 
 	for (int i = 0; i < props.size(); ++i) {
-		props[i].texture.bindTexture();
+		props[i].texture.bindTexture(shader_programme, i + 5);
 		props[i].render(projectionViewMatrix, shader_programme);
 	}
 
